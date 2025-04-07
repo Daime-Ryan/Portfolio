@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daime Ryan Portfolio</title>
+    <link rel="stylesheet" href="portfolio.css"> <!-- Lien vers le fichier CSS -->
+</head>
+
+<body>
+
+    <!-- En-tête de navigation -->
+    <header>
+       <nav>
+    <a href="index.html">   
+        <img src="https://i.pinimg.com/originals/00/d6/fb/00d6fbe8414fc9bdc5657f05ff71d82a.png" alt="Logo de Daime Ryan" class="nav-logo">
+    </a>
+    <ul>
+        <li>
+            <a href="Parcours.html">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône parcours" width="20" height="20">
+                Parcours
+            </a>
+        </li>
+        <li>
+            <a href="presall.html">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique" width="20" height="20">
+                Projets
+            </a>
+        </li>
+        <li>
+            <a href="epreuveE4.html">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône épreuve E4" width="20" height="20">
+                Epreuve E5
+            </a>
+        </li>
+        <li>
+            <a href="veille.html">
+                <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique" width="20" height="20">
+                Veille Technologique
+            </a>
+        </li>
+    </ul>
+</nav>
+
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <section class="welcome">
+            <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône bienvenue" width="40" height="40" class="logo-side">
+            <h1 class="title-main">Daime Ryan Portfolio</h1>
+            <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône bienvenue" width="40" height="40" class="logo-side">
+        </section>
+
+        <!-- Présentation et Compétences -->
+        <section class="subtitle">
+            <h1>À propos de moi :</h1>
+            <p>Bonjour, je suis Ryan</p>
+            <p>Actuellement étudiant au Lycée Gaston Berger en 2ème année de BTS SIO (Services Informatiques aux Organisations) dans l'option SLAM (Solutions Logicielles et Application Métier), qui est une option axée développement.</p>
+
+            <!-- Section Compétences -->
+            <section class="skills">
+                <h2>Mes compétences :</h2> <!-- Titre ajouté ici -->
+                <div class="skills-logos">
+                    <div class="skill-item">
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="Logo HTML" width="60" height="60">
+                        <p>HTML</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="Logo CSS" width="60" height="60">
+                        <p>CSS</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn-icons-png.flaticon.com/512/919/919830.png" alt="Logo PHP" width="60" height="60">
+                        <p>PHP</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/036/044/336/small_2x/sql-database-icon-logo-design-ui-or-ux-app-png.png" alt="Logo SQL" width="60" height="60">
+                        <p>SQL</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png" alt="Logo C#" width="60" height="60">
+                        <p>C#</p>
+                    </div>
+                </div>
+            </section>
+
+            <p>Je vous propose sur ce portfolio de retrouver ci-dessous mon parcours scolaire et professionnel. Vous retrouverez également mon CV ainsi que mes différents projets.</p>
+            <p>Clique sur le Logo pour accéder à mon CV</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/2245/2245058.png" alt="Icône CV" width="40" height="40">
+        </section>
+    </main>
+
+    <!-- Script pour l'effet de défilement sur la navigation -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+
+</body>
+
+</html>
