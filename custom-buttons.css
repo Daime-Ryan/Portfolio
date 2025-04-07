@@ -1,0 +1,88 @@
+/* Styles pour les boutons supplémentaires */
+.btn-secondary {
+    display: block; /* Les empiler verticalement */
+    margin: 20px auto 8px auto; /* Marge supérieure plus grande pour descendre les boutons */
+    padding: 10px 15px; /* Taille du bouton */
+    font-size: 14px; /* Taille du texte */
+    color: white; /* Couleur du texte */
+    background-color: #2a8add; /* Couleur de fond bleue */
+    border: 1px solid #6c757d; /* Bordure assortie */
+    border-radius: 4px; /* Bords arrondis */
+    cursor: pointer; /* Curseur en mode clic */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 80%; /* Largeur contrôlée pour un design uniforme */
+    text-align: center; /* Assure que le texte est centré */
+}
+
+/* Effet hover */
+.btn-secondary:hover {
+    background-color: #247cbf; /* Couleur au survol */
+    transform: translateY(-2px); /* Léger soulèvement au survol */
+}
+
+/* Espace au-dessus des cartes */
+.container { 
+    margin-top: 180px; /* Ajuste cette valeur pour descendre les cartes sous la sticky-header */
+}
+
+/* Alignement des boutons et du contenu dans chaque carte */
+.card {
+    padding: 25px;
+    margin-bottom: 10px; /* Réduire la marge inférieure pour rapprocher les cartes */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Centrer tout le contenu */
+}
+
+/* Centrage vertical des éléments dans les cartes */
+.card h3,
+.card .btn,
+.card .btn-secondary {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fixer la sticky-header en haut avec un espacement correct */
+.sticky-header {
+    position: absolute;
+    top: 120px; /* Ajuste cette valeur selon la hauteur de ta navbar */
+    text-align: center;
+    z-index: 999; /* Assure qu'il reste visible sous la navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 10px 0; /* Espacement autour du contenu */
+}
+
+/* Stylisation du titre dans la sticky-header */
+.sticky-header h1 {
+    margin: 0;
+    font-size: 2rem; /* Ajuste la taille selon le design */
+}
+
+/* Stylisation du lien dans sticky-header */
+.sticky-preuves {
+    background-color: #4a90e2;  /* Bleu */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 20px; /* Un peu plus de padding pour l'esthétique */
+}
+
+/* Assurer que l'en-tête et la sticky-header sont bien visibles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Assure qu'il reste au-dessus du contenu */
+    background-color: white; /* Assure la lisibilité de l'en-tête */
+}
+
+/* Ajuster le padding du body pour ne pas cacher le contenu sous l'en-tête */
+body {
+    padding-top: 80px; /* Ajuste cette valeur en fonction de la hauteur de ton en-tête */
+}
