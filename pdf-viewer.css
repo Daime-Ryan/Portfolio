@@ -1,4 +1,4 @@
-/* Styles pour la page */
+
 body {
     font-family: 'Lato', sans-serif;
     background-color: #f4f4f4;
@@ -12,18 +12,18 @@ body {
 }
 
 h1 {
-    font-family: 'Segoe Print', 'Arial', sans-serif; /* Police moderne sans-serif */
-    color: #4a90e2; /* Bleu élégant */
-    font-size: 2rem; /* Taille du texte */
-    text-transform: uppercase; /* Texte en majuscules */
-    letter-spacing: 2px; /* Espacement entre les lettres */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Ombre subtile */
-    margin: 10px 0; /* Espacement autour du titre */
-    text-align: center; /* Centre le titre */
+    font-family: 'Segoe Print', 'Arial', sans-serif; 
+    color: #4a90e2; 
+    font-size: 2rem; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px 0; 
+    text-align: center; 
     position: relative;
 }
 
-/* Ligne décorative sous le titre */
+
 h1::after {
     content: '';
     display: block;
@@ -62,7 +62,7 @@ h1::after {
     display: inline-block; /* Pour que la barre s'adapte à la largeur du texte */
 }
 
-/* Ajout de la barre décorative */
+
 .card h3::after {
     content: '';
     display: block;
@@ -91,55 +91,53 @@ h1::after {
     background-color: #4a3cb8;
 }
 
-/* Styles pour la boîte modale */
 
 .modal {
-    display: none; /* Modale cachée par défaut */
+    display: none; 
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(75, 75, 75, 0.9); /* Fond plus sombre */
-    opacity: 0; /* Transparence initiale */
-    transition: opacity 0.3s ease; /* Transition fluide pour l'opacité */
+    background-color: rgba(75, 75, 75, 0.9); 
+    opacity: 0; 
+    transition: opacity 0.3s ease;
 }
 
-/* Contenu de la boîte modale */
+
 .modal-content {
     background-color: #f4f4f4;
-    margin: 2% auto; /* Réduit la marge pour maximiser la hauteur */
+    margin: 2% auto; 
     padding: 10px;
-    width: 95%; /* Utilise 95% de la largeur de l'écran */
-    height: 90%; /* Utilise 90% de la hauteur de l'écran */
+    width: 95%; 
+    height: 90%; 
     border-radius: 10px;
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-/* Style pour l'iframe */
+
 #pdf-iframe {
     width: 100%;
-    height: 100%; /* Prend toute la hauteur de la modale */
+    height: 100%;
     border: none;
 }
 
-/* Affiche l'iframe lorsque un PDF est chargé */
+
 #pdf-modal.show iframe {
-    display: block; /* Montre l'iframe une fois un PDF chargé */
-}
+    display: block;
 
 
 
-/* Bouton de fermeture */
+
 .close-btn {
     position: absolute;
     top: 10px;
     right: 20px;
     color: #333;
-    font-size: 35px; /* Bouton de fermeture plus grand */
+    font-size: 35px; 
     cursor: pointer;
 }
 
@@ -147,7 +145,7 @@ h1::after {
     color: #6c5ce7;
 }
 
-    /* Barre de navigation stylisée */
+   
     nav {
         background: linear-gradient(45deg, rgba(0, 0, 70, 0.8), rgba(0, 0, 50, 0.8)); /* Dégradé de fond */
         padding: 1rem 2rem;
