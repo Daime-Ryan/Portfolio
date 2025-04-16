@@ -1,239 +1,88 @@
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: #f3f4f6;
-    min-height: 100vh;
-}
-
-/* Navigation */
-.nav {
-    background-color: #312e81;
-    padding: 1rem;
-    color: white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.nav-container {
-    max-width: 80rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    color: white;
-    display: flex;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-link {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.2s;
-}
-
-.nav-link:hover {
-    color: #93c5fd;
-}
-
-/* Header */
-.header {
-    background-color: white;
-    padding: 1.5rem 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.header-container {
-    max-width: 80rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header h1 {
-    font-size: 1.875rem;
-    font-weight: bold;
-    color: #111827;
-}
-
-.btn-synthesis {
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-
-.btn-synthesis:hover {
-    background-color: #2563eb;
-}
-
-/* Main content */
-.main {
-    max-width: 80rem;
-    margin: 1.5rem auto;
-    padding: 0 1.5rem;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-/* Cards */
-.card {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.2s;
-}
-
-.card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 1rem;
-}
-
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-/* Buttons */
-.btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: all 0.2s;
-}
-
-.btn-primary {
-    background-color: #4f46e5;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #4338ca;
-}
-
+/* Styles pour les boutons supplémentaires */
 .btn-secondary {
-    background-color: #f3f4f6;
-    color: #374151;
+    display: block; /* Les empiler verticalement */
+    margin: 20px auto 8px auto; /* Marge supérieure plus grande pour descendre les boutons */
+    padding: 10px 15px; /* Taille du bouton */
+    font-size: 14px; /* Taille du texte */
+    color: white; /* Couleur du texte */
+    background-color: #2a8add; /* Couleur de fond bleue */
+    border: 1px solid #6c757d; /* Bordure assortie */
+    border-radius: 4px; /* Bords arrondis */
+    cursor: pointer; /* Curseur en mode clic */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 80%; /* Largeur contrôlée pour un design uniforme */
+    text-align: center; /* Assure que le texte est centré */
 }
 
+/* Effet hover */
 .btn-secondary:hover {
-    background-color: #e5e7eb;
+    background-color: #247cbf; /* Couleur au survol */
+    transform: translateY(-2px); /* Léger soulèvement au survol */
 }
 
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 50;
-    padding: 1rem;
+/* Espace au-dessus des cartes */
+.container { 
+    margin-top: 180px; /* Ajuste cette valeur pour descendre les cartes sous la sticky-header */
 }
 
-.modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Alignement des boutons et du contenu dans chaque carte */
+.card {
+    padding: 25px;
+    margin-bottom: 10px; /* Réduire la marge inférieure pour rapprocher les cartes */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Centrer tout le contenu */
 }
 
-.modal-content {
-    background-color: white;
-    width: 95%;
-    height: 90vh;
-    border-radius: 0.5rem;
+/* Centrage vertical des éléments dans les cartes */
+.card h3,
+.card .btn,
+.card .btn-secondary {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fixer la sticky-header en haut avec un espacement correct */
+.sticky-header {
+    position: absolute;
+    top: 120px; /* Ajuste cette valeur selon la hauteur de ta navbar */
+    text-align: center;
+    z-index: 999; /* Assure qu'il reste visible sous la navbar */
     display: flex;
     flex-direction: column;
-}
-
-.modal-header {
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e5e7eb;
+    
+    padding: 10px 0; /* Espacement autour du contenu */
 }
 
-.modal-header h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
+/* Stylisation du titre dans la sticky-header */
+.sticky-header h1 {
+    margin: 0;
+    font-size: 2rem; /* Ajuste la taille selon le design */
 }
 
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #6b7280;
-    cursor: pointer;
-    padding: 0.5rem;
+/* Stylisation du lien dans sticky-header */
+.sticky-preuves {
+    background-color: #4a90e2;  /* Bleu */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 20px; /* Un peu plus de padding pour l'esthétique */
 }
 
-.modal-close:hover {
-    color: #374151;
-}
-
-.modal-body {
-    flex: 1;
-    overflow: hidden;
-}
-
-#pdf-viewer {
+/* Assurer que l'en-tête et la sticky-header sont bien visibles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 1000; /* Assure qu'il reste au-dessus du contenu */
+    background-color: white; /* Assure la lisibilité de l'en-tête */
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .nav-links span {
-        display: none;
-    }
-    
-    .nav-links {
-        gap: 1rem;
-    }
-    
-    .header-container {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-    
-    .grid {
-        grid-template-columns: 1fr;
-    }
+/* Ajuster le padding du body pour ne pas cacher le contenu sous l'en-tête */
+body {
+    padding-top: 80px; /* Ajuste cette valeur en fonction de la hauteur de ton en-tête */
 }
