@@ -3,109 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualisation des Compétences</title>
-    <link rel="stylesheet" href="pdf-viewer.css">
-    <link rel="stylesheet" href="stylesheet.css"> <!-- Assurez-vous que ce fichier est bien chargé avant custom-buttons.css -->
-    <link rel="stylesheet" href="custom-buttons.css"> <!-- Nouveau fichier CSS pour les boutons supplémentaires -->
+    <title>Compétences - Portfolio</title>
+    <link rel="stylesheet" href="custom-buttons.css">
+    
     
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">   
-                <img src="https://i.pinimg.com/originals/00/d6/fb/00d6fbe8414fc9bdc5657f05ff71d82a.png" alt="Logo de Daime Ryan" class="nav-logo">
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://i.pinimg.com/originals/00/d6/fb/00d6fbe8414fc9bdc5657f05ff71d82a.png" alt="Logo de Daime Ryan">
             </a>
-            <ul>
+            <ul class="nav-links">
                 <li>
-                    <a href="Parcours.html">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône parcours" width="20" height="20">
-                        Parcours
+                    <a href="Parcours.html" class="nav-link">
+                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône parcours">
+                        <span>Parcours</span>
                     </a>
                 </li>
                 <li>
-                    <a href="presall.html">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique" width="20" height="20">
-                        Projets
+                    <a href="presall.html" class="nav-link">
+                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône projets">
+                        <span>Projets</span>
                     </a>
                 </li>
                 <li>
-                    <a href="epreuveE4.html">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône épreuve E4" width="20" height="20">
-                        Epreuve E5
+                    <a href="epreuveE4.html" class="nav-link">
+                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône épreuve E5">
+                        <span>Epreuve E5</span>
                     </a>
                 </li>
                 <li>
-                    <a href="veille.html">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique" width="20" height="20">
-                        Veille Technologique
+                    <a href="veille.html" class="nav-link">
+                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique">
+                        <span>Veille Technologique</span>
                     </a>
                 </li>
             </ul>
-        </nav>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="header-content">
+            <h1>Compétences</h1>
+            <a href="pdfs/E4.pdf" class="synthesis-btn" target="_blank">
+                Tableau de Synthèse
+            </a>
+        </div>
     </header>
-    
-    <div class="sticky-header">
-        <h1>Compétences</h1>
-        <a href="pdfs/E4.pdf" class="sticky-preuves" target="_blank">Tableau de Synthèse</a>
-    </div>
-    
-<p></p>
-    <div class="container">
-        <!-- Compétence 1 -->
-        <div class="card">
-            <h3>Gérer le patrimoine informatique</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence1.pdf')">Ecole</a>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence1.pdf')">Plastitek</button>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/renault/Competence1.pdf')">Renault</button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="competencies-grid">
+            <!-- Compétence 1 -->
+            <div class="competency-card">
+                <h2>Gérer le patrimoine informatique</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence1.pdf')">Ecole</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence1.pdf')">Plastitek</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/renault/Competence1.pdf')">Renault</button>
+                </div>
+            </div>
+
+            <!-- Compétence 2 -->
+            <div class="competency-card">
+                <h2>Répondre aux incidents et aux demandes d'assistance et d'évolution</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence2.pdf')">Ecole</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence2.pdf')">Plastitek</button>
+                </div>
+            </div>
+
+            <!-- Compétence 3 -->
+            <div class="competency-card">
+                <h2>Développer la présence en ligne de l'organisation</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence3.pdf')">Ecole</button>
+                </div>
+            </div>
+
+            <!-- Compétence 4 -->
+            <div class="competency-card">
+                <h2>Travailler en mode projet</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence4.pdf')">Ecole</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence4.pdf')">Plastitek</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/renault/Competence4.pdf')">Renault</button>
+                </div>
+            </div>
+
+            <!-- Compétence 5 -->
+            <div class="competency-card">
+                <h2>Mettre à disposition des utilisateurs un service informatique</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence5.pdf')">Ecole</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence5.pdf')">Plastitek</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/renault/Competence5.pdf')">Renault</button>
+                </div>
+            </div>
+
+            <!-- Compétence 6 -->
+            <div class="competency-card">
+                <h2>Organiser son développement professionnel</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="viewPDF('pdfs/ecole/Competence6.pdf')">Ecole</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence6.pdf')">Plastitek</button>
+                    <button class="btn btn-secondary" onclick="viewPDF('pdfs/renault/Competence6.pdf')">Renault</button>
+                </div>
+            </div>
         </div>
-    
-        <!-- Compétence 2 -->
-        <div class="card">
-            <h3>Répondre aux incidents et aux demandes d’assistance et d’évolution</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence2.pdf')">Ecole</a>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence2.pdf')">Plastitek</button>
-            
-        </div>
-    
-        <!-- Compétence 3 -->
-        <div class="card">
-            <h3>Développer la présence en ligne de l’organisation</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence3.pdf')">Ecole</a>
-        </div>
-    
-        <!-- Compétence 4 -->
-        <div class="card">
-            <h3>Travailler en mode projet</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence4.pdf')">Ecole</a>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence4.pdf')">Plastitek</button>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/renault/Competence4.pdf')">Renault</button>
-        </div>
-    
-        <!-- Compétence 5 -->
-        <div class="card">
-            <h3>Mettre à disposition des utilisateurs un service informatique</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence5.pdf')">Ecole</a>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence5.pdf')">Plastitek</button>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/renault/Competence5.pdf')">Renault</button>
-        </div>
-    
-        <!-- Compétence 6 -->
-        <div class="card">
-            <h3>Organiser son développement professionnel</h3>
-            <a href="#" class="btn" onclick="viewPDF('pdfs/ecole/Competence6.pdf')">Ecole</a>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/plastitek/Competence6.pdf')">Plastitek</button>
-            <button class="btn-secondary" onclick="viewPDF('pdfs/renault/Competence6.pdf')">Renault</button>
-        </div>
-    </div>
-    
-    <!-- Boîte modale pour afficher le PDF -->
+    </main>
+
+    <!-- PDF Modal -->
     <div id="pdf-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closePDF()">&times;</span>
+            <button class="modal-close" onclick="closePDF()">&times;</button>
             <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
         </div>
     </div>
 
-    <script src="pdf.js"></script> <!-- Lien vers le fichier JS -->
+    <script src="pdf.js"></script>
 </body>
 </html>
