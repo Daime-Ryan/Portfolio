@@ -1,321 +1,260 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Lato', sans-serif; /* Changer la police par défaut pour Lato */
-    height: 100%;
-    background-image: url('https://www.example.com/maritime-background.jpg'); /* Remplacer par l'URL de ton image de fond */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
+/* Base styles */
+:root {
+    --primary: #312e81;
+    --primary-light: #4338ca;
+    --secondary: #6366f1;
+    --text-primary: #1e1b4b;
+    --text-secondary: #4b5563;
+    --background: #f5f3ff;
+    --white: #ffffff;
 }
 
-/* Barre de navigation stylisée */
-nav {
-    background: linear-gradient(45deg, rgba(0, 0, 70, 0.8), rgba(0, 0, 50, 0.8)); /* Dégradé de fond */
-    padding: 1rem 2rem;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.nav {
+    background-color: var(--primary);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.nav.scrolled {
+    background-color: rgba(49, 46, 129, 0.95);
+    backdrop-filter: blur(8px);
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 2rem;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-link {
     display: flex;
     align-items: center;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease-in-out;
-    margin: 20px auto;
-    max-width: 1200px;
-}
-
-.nav-logo {
-    width: 60px;
-    height: auto;
-    margin-right: 1rem;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 0 1rem;
-    position: relative;
-    transition: transform 0.3s ease;
-}
-
-nav ul li:hover {
-    transform: scale(1.1);
-}
-
-nav ul li img {
-    margin-right: 0.5rem;
-    width: 24px;
-    height: auto;
-}
-
-nav ul li a {
-    font-family: 'Segoe Print', 'Arial', sans-serif;
-    color: white;
+    gap: 0.5rem;
+    color: var(--white);
     text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-    transition: color 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: color 0.2s ease;
 }
 
-nav ul li a:hover {
-    color: #4a8cd8;
-    background-color: rgba(255, 255, 255, 0.1);
+.nav-link:hover {
+    color: #93c5fd;
 }
 
-/* Style du titre principal */
-.title-main {
-    font-family: 'Montserrat', sans-serif; /* Utilisation de Montserrat */
-    font-size: 3rem;
-    color: #005bbb;
-    background: linear-gradient(90deg, #005bbb, #00aaff);
-    -webkit-background-clip: text; /* Préfixe pour WebKit */
-    background-clip: text; /* Version standard pour compatibilité */
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    margin: 20px 0;
-    letter-spacing: 1px;
+.nav-link img {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
 }
 
-/* Style pour les sous-titres principaux (H2) */
-.subtitle h1, .subtitle-small, .skills h2 {
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    font-size: 2.5rem;
-    color: #0077cc; /* Bleu plus clair */
-    background: linear-gradient(90deg, #0077cc, #66ccff); /* Dégradé bleu clair */
-    -webkit-background-clip: text;
-    background-clip: text; /* Propriété standard pour la compatibilité */
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    border-bottom: 2px solid #0077cc; /* Bordure bleue pour souligner */
-    padding-bottom: 10px;
-    text-shadow: 1px 1px 4px rgba(0, 51, 102, 0.3);
-}
-
-/* Style pour les sous-titres des sections (H3) */
-.sport h1, .skills h2 {
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    font-size: 2rem;
-    color: #004080; /* Bleu profond */
-    text-align: center;
-    background: linear-gradient(90deg, #004080, #6699cc); /* Dégradé bleu-gris */
-    -webkit-background-clip: text;
-    background-clip: text; /* Propriété standard pour la compatibilité */
-    -webkit-text-fill-color: transparent;
-    text-transform: uppercase;
-    margin: 15px 0;
-    letter-spacing: 0.5px;
-    text-shadow: 1px 2px 5px rgba(0, 51, 102, 0.3);
-}
-
-/* Paragraphe de texte */
-.subtitle p, .sport p, .sport ul li {
-    color: #003366; /* Bleu foncé pour contraste */
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-/* Styles pour les compétences */
-.skills h2 {
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    color: #005bbb;
-    font-size: 2rem;
-    text-align: center;
-}
-
-.skills-logos {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.skill-item {
-    color: #004080;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px rgba(0, 51, 102, 0.3);
-}
-
-/* Style du contenu principal */
+/* Main Content */
 .main-content {
-    text-align: center;
-    padding: 3rem 1rem;
+    padding-top: 6rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Style de la box .welcome */
+/* Welcome Section */
 .welcome {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem; /* Ajoute un espace entre les éléments */
+    gap: 2rem;
+    margin-bottom: 4rem;
 }
 
-/* Style de la box .subtitle */
-.subtitle {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.932);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(4, 0, 252, 0.5);
-    animation: rotating-shadow 5s infinite ease-in-out;
-    transition: transform 0.3s ease;
+.logo-side {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
 }
 
-.subtitle-small {
-    color: #4a8cd8; /* Couleur bleue */
-    font-size: 1.5rem; /* Plus grand que le texte normal (généralement 1rem) */
-    margin: 10px 0; /* Espacement au-dessus et en dessous */
-    text-align: center; /* Centrer le texte */
-    text-decoration-color: rgb(4, 0, 252);
-    text-decoration-line: underline;
-}
-
-/* Effet de survol pour .subtitle */
-.subtitle:hover {
-    transform: scale(1.05);
-}
-
-/* Titre dans .subtitle */
-.subtitle h1 {
-    color: #0226f5dc;
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    font-size: 2rem;
+.title-main {
+    font-size: 3rem;
+    color: var(--primary);
     text-align: center;
-    margin-bottom: 15px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-
-/* Paragraphe dans .subtitle */
-.subtitle p {
-    color: #0226f5dc;
-    font-family: 'Lato', sans-serif; /* Utilisation de Lato */
-    font-size: 1.1rem; /* Légèrement augmenté pour la lisibilité */
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-/* Couleur des éléments de la liste dans la section veille technologique */
-.subtitle ul li {
-    color: #003366; /* Choisissez une couleur qui contraste avec le fond */
-    font-size: 1rem; /* Taille de police souhaitée */
-    line-height: 1.6; /* Hauteur de ligne pour améliorer la lisibilité */
-    margin-bottom: 15px; /* Espacement entre les éléments */
+/* About Section */
+.about {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.about h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
 
-/* Styles pour les compétences */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-content p {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+/* Skills Section */
 .skills {
-    display: flex;
-    flex-direction: column; /* Colonne pour le titre */
-    align-items: center; /* Centre le titre et le conteneur des logos */
-    margin-top: 1.5rem;
+    margin-bottom: 4rem;
 }
 
-.skills h2 { /* Cible le titre h2 dans la section compétences */
-    color: #0226f5dc; /* Changez la couleur selon votre besoin */
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    font-size: 2rem; /* Ajuste la taille du texte */
-}
-
-.skills-logos {
-    display: flex; /* Aligne les éléments en ligne */
-    justify-content: center; /* Centre les logos */
-    flex-wrap: nowrap; /* Empêche le passage à la ligne */
-    margin: 1rem 0; /* Ajoute de l'espace au-dessus et en dessous */
-}
-
-.skill-item {
-    text-align: center; /* Centre le texte sous chaque logo */
-}
-
-/* Style pour les sections de présentation */
-.presentation {
-    display: flex;
-    flex-direction: column; /* Colonne pour le titre */
-    align-items: center; /* Centre le titre et le contenu */
-}
-
-.presentation h2 {
-    color: #0226f5dc; /* Une couleur différente pour le titre */
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
+.skills h2 {
+    color: var(--primary);
     font-size: 2rem;
-    margin: 10px 0; /* Ajoute un espacement au-dessus et en dessous */
-}
-
-.presentation p {
-    color: #0226f5dc; /* Une couleur différente pour le texte */
-    font-family: 'Lato', sans-serif; /* Utilisation de Lato */
-    font-size: 1rem;
-    text-align: center; /* Centre le texte dans la section */
-    margin: 10px 0; /* Ajoute un espacement au-dessus et en dessous */
-}
-
-/* Style pour la section du parcours sportif */
-.sport {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(252, 0, 0, 0.5);
-    animation: rotating-shadow 5s infinite ease-in-out;
-    transition: transform 0.3s ease;
-    text-align: center; /* Centre le texte dans la section sport */
-}
-
-.sport h1 {
-    font-family: 'Raleway', sans-serif; /* Utilisation de Raleway */
-    color: #0226f5dc; /* Une couleur différente pour le titre */
-    font-size: 2rem;
+    margin-bottom: 2rem;
     text-align: center;
-    margin-bottom: 15px;
 }
 
-.sport p, .sport ul li {
-    font-family: 'Lato', sans-serif; /* Utilisation de Lato */
-    color: #0226f5dc;
-    font-size: 1.1rem; /* Légèrement augmenté pour la lisibilité */
-    line-height: 1.6;
-    margin-bottom: 15px;
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    justify-items: center;
 }
 
-.sport ul {
-    list-style-position: inside; /* Place les puces de la liste à l'intérieur et au centre */
-    padding-left: 0; /* Supprime le retrait gauche */
-    display: inline-block; /* Permet au texte de se centrer */
-    text-align: left; /* Centre le contenu par rapport à la section */
+.skill-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.sport ul li {
-    text-align: center; /* Centre chaque élément de la liste */
+.skill-card:hover {
+    transform: translateY(-0.5rem);
 }
 
-
-/* Style du titre combiné "Veille Passive" et "Veille Active" */
-
-
-/* Couleur verte pour "Veille Passive" */
-.passive {
-color: #008000; /* Vert */
-font-weight: bold;
+.skill-card img {
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-bottom: 1rem;
 }
 
-/* Couleur rouge pour la Veille Active */
-.active {
-color: #FF0000; /* Rouge */
-font-weight: bold;
+.skill-card p {
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
-.gras {
-font-weight: bold; /* Met le texte en gras */
-} 
+/* CV Section */
+.cv-section {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cv-section p {
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+.cv-download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cv-link img {
+    width: 2.5rem;
+    height: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.cv-link:hover img {
+    transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .welcome {
+        gap: 1rem;
+    }
+
+    .title-main {
+        font-size: 2rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .welcome {
+        flex-direction: column;
+    }
+
+    .about, .cv-section {
+        padding: 1.5rem;
+    }
+}
