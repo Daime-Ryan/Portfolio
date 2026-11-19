@@ -1,131 +1,1056 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daime Ryan Portfolio</title>
-    <link rel="stylesheet" href="portfolio.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ryan Daime – Portfolio animé</title>
+<meta name="description" content="Portfolio de Ryan Daime, étudiant en Mastère 1 cybersécurité, orienté sécurité opérationnelle et analyse SOC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout : colonne de lecture unique, en-têtes de section façon "journal d'événements" (mono + horodatage). */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --ink: #15202c;
+  --muted: #586675;
+  --line: #dde3ea;
+  --accent: #0d5fb0;
+  --signal: #c96a12;
+  --accent-soft: #e4eef9;
+  --signal-soft: #fbeedd;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d131a; --surface: #141c25; --ink: #e5eaf0; --muted: #94a2b1; --line: #26313d;
+    --accent: #62aef5; --signal: #f0a14c; --accent-soft: #15283c; --signal-soft: #33240f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d131a; --surface: #141c25; --ink: #e5eaf0; --muted: #94a2b1; --line: #26313d;
+  --accent: #62aef5; --signal: #f0a14c; --accent-soft: #15283c; --signal-soft: #33240f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.01em; }
+
+/* Navigation */
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+.brand { font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; color: var(--ink); text-decoration: none; }
+.brand span { color: var(--signal); }
+nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+nav a:hover { color: var(--ink); }
+@media (max-width: 760px) { nav ul { display: none; } }
+
+/* Hero */
+.hero { padding: 72px 0 56px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+@media (max-width: 880px) { .hero { grid-template-columns: 1fr; padding-top: 48px; } }
+.status { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); margin-bottom: 20px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px var(--signal-soft); }
+.hero h1 { font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
+.hero .role { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.4rem); color: var(--muted); margin-top: 10px; }
+.hero p.lead { margin-top: 22px; max-width: 58ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+:root[data-theme="dark"] .btn.primary { color: #0d131a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0d131a; } }
+.btn:hover { border-color: var(--accent); }
+
+/* Carte "alerte" du hero */
+.alert-card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--signal); border-radius: 10px; padding: 20px 22px; }
+.alert-card .head { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); margin-bottom: 14px; flex-wrap: wrap; }
+.sev { color: var(--signal); font-weight: 600; }
+.alert-card dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+.alert-card dt { color: var(--muted); }
+.alert-card dd { margin: 0; overflow-wrap: anywhere; }
+.verdict { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.95rem; }
+.verdict b { color: var(--accent); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; margin-right: 6px; }
+.caption { color: var(--muted); font-size: 0.85rem; margin-top: 10px; }
+
+/* Sections */
+section { padding: 64px 0; border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: 200px 1fr; gap: 24px; margin-bottom: 36px; align-items: baseline; }
+@media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; gap: 6px; } }
+.sec-head .mono { color: var(--signal); }
+.sec-head h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.sec-head p { color: var(--muted); margin-top: 8px; max-width: 62ch; }
+.sec-body { margin-left: 224px; }
+@media (max-width: 760px) { .sec-body { margin-left: 0; } }
+
+/* À propos */
+.about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
+@media (max-width: 880px) { .about { grid-template-columns: 1fr; } }
+.about p + p { margin-top: 14px; }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.facts li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.facts .mono { color: var(--muted); display: block; margin-bottom: 2px; }
+
+/* Parcours */
+.timeline { list-style: none; margin-top: 0; margin-bottom: 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 118px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+.timeline li { display: grid; grid-template-columns: 104px 1fr; gap: 30px; padding: 0 0 30px; position: relative; }
+.timeline li::before { content: ""; position: absolute; left: 114px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.timeline li.now::before { background: var(--signal); border-color: var(--signal); }
+.timeline .when { color: var(--muted); text-align: right; padding-top: 2px; }
+.timeline h3 { font-size: 1.12rem; }
+.timeline .org { color: var(--muted); font-size: 0.95rem; }
+.timeline ul.pts { margin: 8px 0 0; padding-left: 18px; }
+.timeline ul.pts li { display: list-item; padding: 0; margin: 3px 0; }
+.timeline ul.pts li::before { display: none; }
+.kind { display: inline-block; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 4px; margin-right: 8px; vertical-align: 2px; }
+.kind.ecole { background: var(--accent-soft); color: var(--accent); }
+.kind.pro { background: var(--signal-soft); color: var(--signal); }
+@media (max-width: 560px) {
+  .timeline::before { left: 4px; }
+  .timeline li { grid-template-columns: 1fr; gap: 4px; padding-left: 26px; }
+  .timeline li::before { left: 0; }
+  .timeline .when { text-align: left; }
+}
+
+/* Projets */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.filters button {
+  font: inherit; font-size: 0.9rem; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+}
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.card[hidden] { display: none; }
+.card .meta { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); flex-wrap: wrap; }
+.card .cat { color: var(--accent); }
+.card h3 { font-size: 1.2rem; }
+.card p { color: var(--ink); font-size: 0.98rem; }
+.card ul { margin: 0; padding-left: 18px; font-size: 0.96rem; }
+.card ul li { margin: 3px 0; }
+.card .result { border-top: 1px dashed var(--line); padding-top: 10px; color: var(--muted); font-size: 0.93rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tag { font-family: var(--font-mono); font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+
+/* Compétences */
+.blocs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 760px) { .blocs { grid-template-columns: 1fr; } }
+.bloc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+.bloc .mono { color: var(--signal); }
+.bloc h3 { font-size: 1.1rem; margin: 4px 0 12px; }
+.bloc ul { margin: 0; padding-left: 18px; font-size: 0.96rem; }
+.bloc ul li { margin: 3px 0; }
+.tools { margin-top: 28px; }
+.tools h3 { font-size: 1.05rem; margin-bottom: 12px; }
+.tool-groups { display: grid; gap: 10px; }
+.tool-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; align-items: start; }
+.tool-row .mono { color: var(--muted); padding-top: 4px; }
+@media (max-width: 560px) { .tool-row { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Certifications */
+.certs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 880px) { .certs { grid-template-columns: 1fr; } }
+.cert { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.cert .issuer { color: var(--muted); }
+.cert h3 { font-size: 1.08rem; }
+.score { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+.score small { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+.cert p { color: var(--muted); font-size: 0.93rem; }
+
+/* Hors IT */
+.palmares { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+@media (max-width: 760px) { .palmares { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.palmares div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.palmares b { display: block; font-family: var(--font-display); font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.palmares span { color: var(--muted); font-size: 0.9rem; }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
+.contact a, .contact div { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--ink); }
+.contact a:hover { border-color: var(--accent); }
+.contact .mono { color: var(--muted); display: block; margin-bottom: 4px; }
+footer { padding: 32px 0 48px; color: var(--muted); font-size: 0.88rem; border-top: 1px solid var(--line); }
+
+
+/* ===== Intro de lancement ===== */
+#intro { position: fixed; inset: 0; z-index: 100; background: #04070b; color: #cfe3f5; font-family: var(--font-mono); display: grid; place-items: center; clip-path: inset(0 0 0 0); transition: clip-path .7s cubic-bezier(.7,0,.2,1); color-scheme: dark; }
+#intro.bye { clip-path: inset(50% 0 50% 0); }
+#intro.gone { display: none; }
+html.intro-on body { overflow: hidden; }
+#rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; }
+#intro::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px); }
+#intro::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.75) 100%); }
+.boot { position: relative; z-index: 1; width: min(680px, calc(100% - 40px)); }
+.boot-head { display: flex; justify-content: space-between; gap: 12px; color: #5f7a93; font-size: .75rem; border-bottom: 1px solid #1a2836; padding-bottom: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.boot { transition: opacity .25s; }
+.granted { transition: opacity .3s; }
+.boot-log { min-height: 190px; font-size: .86rem; line-height: 1.75; }
+.boot-log div { white-space: pre-wrap; }
+.boot-log .ok { color: #4fb6ff; } .boot-log .warn { color: #f0a14c; } .boot-log .dim { color: #5f7a93; }
+.boot-bar { margin-top: 16px; height: 6px; background: #0f1a25; border: 1px solid #1a2836; border-radius: 3px; overflow: hidden; }
+.boot-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #4fb6ff, #f0a14c); box-shadow: 0 0 12px #4fb6ff; }
+.boot-pct { margin-top: 6px; display: flex; justify-content: space-between; color: #5f7a93; font-size: .75rem; }
+.granted { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; opacity: 0; pointer-events: none; }
+.granted.show { opacity: 1; }
+.granted .lbl { font-size: .9rem; letter-spacing: .35em; color: #4fb6ff; margin-bottom: 14px; }
+.glitch { position: relative; font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 9vw, 6rem); letter-spacing: -.02em; color: #eef6ff; line-height: 1; }
+.glitch::before, .glitch::after { content: attr(data-text); position: absolute; inset: 0; }
+.glitch::before { color: #4fb6ff; transform: translate(-3px, 0); clip-path: inset(0 0 55% 0); animation: g1 .9s steps(2) infinite; mix-blend-mode: screen; }
+.glitch::after { color: #f0a14c; transform: translate(3px, 0); clip-path: inset(55% 0 0 0); animation: g2 .7s steps(2) infinite; mix-blend-mode: screen; }
+@keyframes g1 { 0% { clip-path: inset(0 0 70% 0); transform: translate(-4px,-1px); } 50% { clip-path: inset(30% 0 40% 0); transform: translate(3px,1px); } 100% { clip-path: inset(60% 0 5% 0); transform: translate(-2px,0); } }
+@keyframes g2 { 0% { clip-path: inset(65% 0 0 0); transform: translate(4px,1px); } 50% { clip-path: inset(10% 0 70% 0); transform: translate(-3px,-1px); } 100% { clip-path: inset(40% 0 35% 0); transform: translate(2px,0); } }
+.granted .sub { margin-top: 16px; color: #8aa3ba; font-size: .85rem; letter-spacing: .12em; }
+.skip { position: absolute; z-index: 3; right: 20px; bottom: 20px; font: inherit; font-size: .78rem; color: #8aa3ba; background: transparent; border: 1px solid #1f3042; border-radius: 6px; padding: 8px 12px; cursor: pointer; }
+.skip:hover, .skip:focus-visible { color: #eef6ff; border-color: #4fb6ff; outline: none; }
+.replay { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { #intro { display: none; } }
+
+/* ===== Version animée ===== */
+#net { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .55; }
+header.top, main, footer { position: relative; z-index: 1; }
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--signal)); z-index: 20; }
+nav a.active { color: var(--ink); box-shadow: inset 0 -2px 0 var(--signal); }
+
+.type { margin-top: 14px; color: var(--muted); font-size: .95rem; }
+.type .prompt { color: var(--signal); margin-right: 6px; }
+#typed { color: var(--accent); font-weight: 600; }
+.caret { display: inline-block; width: 8px; height: 1.05em; background: var(--signal); vertical-align: -2px; margin-left: 3px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.hero h1 { background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 40%, var(--accent) 50%, var(--ink) 60%, var(--ink) 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s ease-in-out infinite; }
+@keyframes shine { 0%,100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+.dot { animation: ping 2s ease-out infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 60%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+
+.alert-card { position: relative; overflow: hidden; }
+.alert-card::after { content: ""; position: absolute; left: 0; right: 0; height: 40%; top: -40%; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 10%, transparent), transparent); animation: scan 4s linear infinite; pointer-events: none; }
+@keyframes scan { to { top: 110%; } }
+.js .alert-card dt, .js .alert-card dd, .js .alert-card .verdict { opacity: .3; transition: opacity .35s ease; }
+.alert-card .on { opacity: 1 !important; }
+.stamp { display: inline-block; margin-left: 8px; padding: 1px 6px; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 4px; font-size: .7rem; transform: rotate(-4deg) scale(0); transition: transform .4s cubic-bezier(.3,1.6,.5,1); }
+.verdict.on .stamp { transform: rotate(-4deg) scale(1); }
+.ticker { margin-top: 12px; height: 84px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 8px 12px; color: var(--muted); }
+.ticker div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: tickin .4s ease; }
+.ticker .ok { color: var(--accent); } .ticker .info { color: var(--signal); }
+@keyframes tickin { from { opacity: 0; transform: translateY(8px); } }
+
+.js .reveal { opacity: .25; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+.timeline .tl-fill { position: absolute; left: 118px; top: 6px; width: 2px; margin-left: -.5px; background: linear-gradient(var(--signal), var(--accent)); height: 0; border-radius: 2px; }
+@media (max-width: 560px) { .timeline .tl-fill { left: 4px; } }
+.timeline li.lit::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); transition: all .4s; }
+.timeline li.now.lit::before { background: var(--signal); box-shadow: 0 0 0 5px var(--signal-soft); }
+
+.card, .bloc, .cert, .contact a { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, opacity .7s ease; }
+.card:hover, .bloc:hover, .cert:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--accent) 70%, transparent); }
+.card.out { opacity: 0; transform: scale(.96); }
+.bloc li { transition: transform .2s; } .bloc li:hover { transform: translateX(4px); color: var(--accent); }
+.tag { transition: background .2s, color .2s, transform .2s; }
+.tag:hover { background: var(--accent-soft); color: var(--accent); transform: translateY(-2px); }
+.js .tools .tag { opacity: .2; transform: scale(.85); }
+.tools .tag.pop { opacity: 1; transform: none; transition: opacity .35s ease, transform .35s cubic-bezier(.3,1.5,.5,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  #net, .alert-card::after, .caret { display: none; }
+  .hero h1 { animation: none; color: var(--ink); background: none; }
+  .dot { animation: none; }
+  .js .reveal, .js .tools .tag, .js .alert-card dt, .js .alert-card dd, .js .alert-card .verdict { opacity: 1 !important; transform: none !important; }
+}
+</style>
 </head>
 <body>
-   
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="https://i.pinimg.com/originals/00/d6/fb/00d6fbe8414fc9bdc5657f05ff71d82a.png" alt="Logo">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li>
-                    <a href="Parcours.html" class="nav-link">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône parcours">
-                        <span>Parcours</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="presall.html" class="nav-link">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône projets">
-                        <span>Projets</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="epreuveE4.html" class="nav-link">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône épreuve E5">
-                        <span>Epreuve E5</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="veille.html" class="nav-link">
-                        <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône veille technologique">
-                        <span>Veille Technologique</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-   
-    <main class="main-content">
-        
-        <section class="welcome">
-            <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône bienvenue" class="logo-side">
-            <h1 class="title-main">Daime Ryan Portfolio</h1>
-            <img src="https://static.vecteezy.com/system/resources/previews/005/204/711/large_2x/rd-letters-logo-design-vector.jpg" alt="Icône bienvenue" class="logo-side">
-        </section>
-
-        
-        <section class="about">
-            <h2>À propos de moi</h2>
-            <div class="about-content">
-                <p>Bonjour, je suis Ryan</p>
-                <p>Actuellement étudiant au Lycée Gaston Berger en 2ème année de BTS SIO (Services Informatiques aux Organisations) dans l'option SLAM (Solutions Logicielles et Application Métier), qui est une option axée développement.</p>
-            </div>
-        </section>
-
-       
-<section class="skills">
-    <h2>Mes compétences</h2>
-    <div class="skills-grid">
-        <div class="skill-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="Logo HTML">
-            <p>HTML</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="Logo CSS">
-            <p>CSS</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919830.png" alt="Logo PHP">
-            <p>PHP</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/036/044/336/small_2x/sql-database-icon-logo-design-ui-or-ux-app-png.png" alt="Logo SQL">
-            <p>SQL</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png" alt="Logo C#">
-            <p>C#</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_js_official_icon_130509.png " alt="Logo JavaScript">
-            <p>JavaScript</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Lua-Logo.svg" alt="Logo LUA">
-            <p>LUA</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Logo Python">
-            <p>Python</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" alt="Logo Bash">
-            <p>Bash</p>
-        </div>
-        <div class="skill-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/PowerShell_5.0_icon.png" alt="Logo Bash">
-            <p>Powershell</p>
+<script>document.documentElement.classList.add("js","intro-on");</script>
+<div id="intro" role="dialog" aria-label="Introduction du portfolio">
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="boot" id="boot">
+    <div class="boot-head"><span>RD-SEC // terminal sécurisé</span><span id="clock">--:--:--</span></div>
+    <div class="boot-log" id="bootlog" aria-live="polite"></div>
+    <div class="boot-bar"><i id="bootbar"></i></div>
+    <div class="boot-pct"><span id="bootstep">initialisation</span><span id="bootpct">0 %</span></div>
+  </div>
+  <div class="granted" id="granted">
+    <div>
+      <div class="lbl">ACCÈS AUTORISÉ</div>
+      <div class="glitch" data-text="RYAN DAIME">RYAN DAIME</div>
+      <div class="sub">COORDINATEUR CYBER · SÉCURITÉ OPÉRATIONNELLE</div>
     </div>
-</section>
+  </div>
+  <button type="button" class="skip" id="skip">Passer l'intro ›</button>
+</div>
+<div class="progress" aria-hidden="true"></div>
+<canvas id="net" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">ryan.daime<span>@</span>soc:~$</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="status mono"><span class="dot" aria-hidden="true"></span>Coordinateur cyber · Centre Hospitalier de Chauny</div>
+        <h1>Ryan Daime</h1>
+        <p class="role">Coordinateur cybersécurité en milieu hospitalier · Mastère 1 Cybersécurité</p>
+        <p class="type mono"><span class="prompt">$</span>whoami → <span id="typed">coordinateur cyber</span><span class="caret" aria-hidden="true"></span></p>
+        <p class="lead">Je suis coordinateur cyber au Centre Hospitalier de Chauny, en parallèle de mon Mastère 1. Avant cela, j'ai passé trois ans en alternance, dont une année à la DSI d'un centre hospitalier : plan de continuité et de reprise d'activité, gestion des accès, supervision et découverte d'un XDR en production. Je construis aussi mes propres labs de détection.</p>
+        <div class="actions">
+          <a class="btn primary" href="#projets">Voir mes projets</a>
+          <a class="btn" href="https://daime-ryan.github.io/Portfolio/cv.pdf">Télécharger mon CV</a>
+          <a class="btn" href="#contact">Me contacter</a>
+        </div>
+      </div>
+
+      <figure style="margin:0">
+        <div class="alert-card mono" role="img" aria-label="Exemple d'alerte analysée dans mon lab Wazuh : échec d'authentification Windows, code 0xc0000064, compte inexistant.">
+          <div class="head"><span>lab-wazuh · agent win-01</span><span class="sev">niveau 5</span></div>
+          <dl>
+            <dt>rule.id</dt><dd>60122</dd>
+            <dt>event.id</dt><dd>4625</dd>
+            <dt>description</dt><dd>Logon failure – unknown user or bad password</dd>
+            <dt>status</dt><dd>0xc0000064</dd>
+          </dl>
+          <div class="verdict"><b>QUALIF.</b><span class="stamp mono">TRAITÉ</span> Compte inexistant, tentative isolée : pas d'escalade, surveillance de la récurrence.</div>
+        </div>
+        <div class="ticker mono" id="ticker" aria-hidden="true"></div>
+        <figcaption class="caption">Extrait d'une alerte que j'ai analysée dans mon lab Wazuh.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- À PROPOS -->
+  <section id="apropos">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">01 · à propos</span>
+        <div><h2>De la gendarmerie à la cybersécurité</h2></div>
+      </div>
+      <div class="sec-body about">
+        <div>
+          <p>Après un passage en faculté de droit, j'ai rejoint la gendarmerie comme gendarme adjoint volontaire. J'y ai appris la rigueur, la gestion de l'urgence et le contact avec le public. C'est en utilisant ses outils informatiques que j'ai compris que je voulais travailler dans ce domaine.</p>
+          <p>Je me suis réorienté vers un BTS SIO option SLAM en alternance, puis vers un Bachelor cybersécurité chez Ynov Lille, validé par le titre RNCP niveau 6 Administrateur Systèmes, Réseaux et Bases de Données. Je poursuis aujourd'hui en Mastère 1.</p>
+          <p>Mon objectif est de commencer en SOC pour maîtriser la détection et la réponse aux incidents, puis d'évoluer vers le pentest une fois cette base solide acquise.</p>
+        </div>
+        <ul class="facts">
+          <li><span class="mono">objectif</span>Analyste SOC</li>
+          <li><span class="mono">poste actuel</span>Coordinateur cyber · Centre Hospitalier de Chauny (02)</li>
+          <li><span class="mono">formation actuelle</span>Mastère 1 Cybersécurité (2026 – 2028)</li>
+          <li><span class="mono">dernier diplôme</span>Titre RNCP niveau 6 ASR-BD · Bachelor Ynov Lille</li>
+          <li><span class="mono">secteur</span>Santé (DSI hospitalière, GHT de 12 établissements)</li>
+          <li><span class="mono">région</span>Hauts-de-France</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">02 · parcours</span>
+        <div><h2>Formation et expériences</h2><p>Les dates sont en ordre antichronologique.</p></div>
+      </div>
+      <ol class="timeline sec-body" reversed>
+        <div class="tl-fill" aria-hidden="true"></div>
+        <li class="now">
+          <div class="when mono">2026 – auj.</div>
+          <div>
+            <h3><span class="kind pro">Poste actuel</span>Coordinateur cyber</h3>
+            <div class="org">Centre Hospitalier de Chauny (02)</div>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">2026 – auj.</div>
+          <div>
+            <h3><span class="kind ecole">École</span>Mastère 1 Cybersécurité</h3>
+            <div class="org">En parallèle de mon poste</div>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">2025 – 2026</div>
+          <div>
+            <h3><span class="kind pro">Alternance</span>Alternant à la DSI</h3>
+            <div class="org">Centre Hospitalier de Saint-Quentin (02)</div>
+            <ul class="pts">
+              <li>Rédaction du PCA/PRA de l'infrastructure : criticité, objectifs RTO/RPO, scénarios de panne</li>
+              <li>Accès en lecture à l'XDR du GHT, observation des règles et playbooks de réponse</li>
+              <li>Projet de matériel de secours cyber : préparation, déploiement automatisé, documentation</li>
+              <li>Gestion des identités : passage des comptes génériques aux comptes nominatifs, habilitations Microsoft 365</li>
+              <li>Support N1/N2 sous GLPI, comparatifs d'achat, suivi budgétaire</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">2025 – 2026</div>
+          <div>
+            <h3><span class="kind ecole">École</span>Bachelor 3 Cybersécurité</h3>
+            <div class="org">Ynov Campus Lille · titre RNCP niveau 6 ASR-BD</div>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">09/24 – 08/25</div>
+          <div>
+            <h3><span class="kind pro">Alternance</span>Technicien informatique</h3>
+            <div class="org">Renault, Lambres-lez-Douai (59)</div>
+            <ul class="pts">
+              <li>Scripts PowerShell de collecte d'informations sur le parc</li>
+              <li>Appui au tuteur sur des projets de développement</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">09/23 – 04/24</div>
+          <div>
+            <h3><span class="kind pro">Alternance</span>Support informatique</h3>
+            <div class="org">Plastitek, Douvrin (62)</div>
+            <ul class="pts">
+              <li>Campagne de phishing simulée avec GoPhish et support de sensibilisation</li>
+              <li>Suivi des demandes de support automatisé (Gmail vers Trello avec Zapier)</li>
+              <li>Support utilisateurs et suivi des alertes antivirus</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">2023 – 2025</div>
+          <div>
+            <h3><span class="kind ecole">École</span>BTS SIO option SLAM</h3>
+            <div class="org">Lycée Gaston Berger, Lille · en alternance</div>
+          </div>
+        </li>
+        <li>
+          <div class="when mono">04/22 – 01/23</div>
+          <div>
+            <h3><span class="kind pro">Service</span>Gendarme adjoint volontaire</h3>
+            <div class="org">École de gendarmerie de Tulle, puis brigade de Condé-en-Normandie (14)</div>
+            <ul class="pts">
+              <li>Accueil du public, interventions sur accidents et urgences</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">03 · projets</span>
+        <div><h2>Projets et réalisations</h2><p>Projets menés en alternance, en formation et en autonomie. Les éléments liés à l'hôpital restent volontairement généraux.</p></div>
+      </div>
+      <div class="sec-body">
+        <div class="filters" role="group" aria-label="Filtrer les projets">
+          <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
+          <button type="button" data-filter="secu" aria-pressed="false">Sécurité opérationnelle</button>
+          <button type="button" data-filter="infra" aria-pressed="false">Infrastructure et continuité</button>
+          <button type="button" data-filter="dev" aria-pressed="false">Développement et automatisation</button>
+        </div>
+
+        <div class="projects">
+          <article class="card" data-cat="secu">
+            <div class="meta mono"><span class="cat">Sécurité opérationnelle</span><span>Projet personnel</span></div>
+            <h3>Lab de détection Wazuh</h3>
+            <p>Un environnement isolé pour pratiquer la détection sans toucher à une production.</p>
+            <ul>
+              <li>VM Ubuntu Server sous VMware, dimensionnée puis reconstruite après un premier essai</li>
+              <li>Agent Windows relié au serveur, analyse des échecs d'authentification (event 4625)</li>
+              <li>Script Bash de supervision (CPU, RAM, disque, service) avec historique</li>
+              <li>Sauvegarde automatisée chaque nuit à 02h00 via cron, journal horodaté</li>
+            </ul>
+            <p class="result">J'ai pu retrouver la cause d'une alerte à partir des journaux centralisés : code 0xc0000064, compte inexistant.</p>
+            <div class="tags"><span class="tag">Wazuh</span><span class="tag">SIEM</span><span class="tag">Ubuntu Server</span><span class="tag">VMware</span><span class="tag">Bash</span><span class="tag">cron</span></div>
+          </article>
+
+          <article class="card" data-cat="infra">
+            <div class="meta mono"><span class="cat">Infrastructure et continuité</span><span>Alternance · hôpital</span></div>
+            <h3>Plan de continuité et de reprise d'activité</h3>
+            <p>Rédaction du PCA/PRA de l'infrastructure informatique d'un centre hospitalier, avec les administrateurs.</p>
+            <ul>
+              <li>Analyse de criticité de l'Active Directory et de la virtualisation VMware (HA, DRS, deux salles serveurs)</li>
+              <li>Matrice RTO/RPO et scénarios de panne : perte d'un hôte, perte d'une salle</li>
+              <li>Étude des sauvegardes, de leur chiffrement et des tests de restauration</li>
+              <li>Recensement du parc depuis GLPI et ressources minimales par métier</li>
+            </ul>
+            <p class="result">J'ai appris à distinguer la haute disponibilité, qui maintient le service, du PRA, qui organise la reprise.</p>
+            <div class="tags"><span class="tag">PCA/PRA</span><span class="tag">VMware</span><span class="tag">Active Directory</span><span class="tag">Veeam</span><span class="tag">RTO/RPO</span></div>
+          </article>
+
+          <article class="card" data-cat="secu">
+            <div class="meta mono"><span class="cat">Sécurité opérationnelle</span><span>Alternance · Plastitek</span></div>
+            <h3>Campagne de phishing simulée</h3>
+            <p>Mesurer la réaction des salariés face à un faux mail, puis les former.</p>
+            <ul>
+              <li>Conception du mail piège et de la page d'atterrissage avec GoPhish</li>
+              <li>Suivi des ouvertures, clics et saisies</li>
+              <li>Support de sensibilisation pour reconnaître un mail de phishing</li>
+              <li>Présentation des résultats et d'une solution de protection à la direction</li>
+            </ul>
+            <div class="tags"><span class="tag">GoPhish</span><span class="tag">Sensibilisation</span><span class="tag">Facteur humain</span></div>
+          </article>
+
+          <article class="card" data-cat="infra">
+            <div class="meta mono"><span class="cat">Infrastructure et continuité</span><span>Alternance · hôpital</span></div>
+            <h3>Matériel de secours en cas de cyberattaque</h3>
+            <p>PC portables et smartphones prêts à être distribués aux services si le SI tombe.</p>
+            <ul>
+              <li>Remasterisation des postes par déploiement automatisé MDT et démarrage PXE</li>
+              <li>Support de formation et exercice de prise en main pour l'équipe</li>
+              <li>Inventaire, bons de mise à disposition et traçabilité entre établissements</li>
+              <li>Proposition de gestion centralisée des smartphones (MDM, Android Enterprise)</li>
+            </ul>
+            <div class="tags"><span class="tag">MDT</span><span class="tag">PXE</span><span class="tag">MDM</span><span class="tag">Documentation</span></div>
+          </article>
+
+          <article class="card" data-cat="secu">
+            <div class="meta mono"><span class="cat">Sécurité opérationnelle</span><span>Alternance · hôpital</span></div>
+            <h3>Identités et accès</h3>
+            <p>Réduire les comptes partagés au profit de comptes nominatifs, sans bloquer les soignants.</p>
+            <ul>
+              <li>Habilitations par groupes et délégations de boîtes partagées Exchange / Microsoft 365</li>
+              <li>Administration des comptes de la solution d'échange sécurisé de fichiers</li>
+              <li>Coffre KeePass pour arrêter la circulation des mots de passe</li>
+              <li>Réunions de concertation avec les services concernés</li>
+            </ul>
+            <div class="tags"><span class="tag">IAM</span><span class="tag">Microsoft 365</span><span class="tag">Exchange</span><span class="tag">MFA</span><span class="tag">KeePass</span></div>
+          </article>
+
+          <article class="card" data-cat="secu">
+            <div class="meta mono"><span class="cat">Sécurité opérationnelle</span><span>Formation · Ynov</span></div>
+            <h3>Analyse de risques EBIOS RM</h3>
+            <p>Étude des risques du système d'information du campus, réalisée en groupe.</p>
+            <ul>
+              <li>Identification des valeurs métier et des sources de risque</li>
+              <li>Cartographie de la menace de l'écosystème et des parties prenantes</li>
+              <li>Mesures de sécurité et comparaison du risque avant et après</li>
+            </ul>
+            <div class="tags"><span class="tag">EBIOS RM</span><span class="tag">ISO 27001</span><span class="tag">Gestion des risques</span></div>
+          </article>
+
+          <article class="card" data-cat="dev">
+            <div class="meta mono"><span class="cat">Développement et automatisation</span><span>Projet personnel</span></div>
+            <h3>Intégration continue avec GitHub Actions</h3>
+            <p>Chaque modification poussée déclenche automatiquement des contrôles de sécurité et des tests.</p>
+            <ul>
+              <li>Workflow GitHub Actions sur une application personnelle</li>
+              <li>Correction d'une anomalie détectée puis validation du workflow</li>
+            </ul>
+            <div class="tags"><span class="tag">Git</span><span class="tag">GitHub Actions</span><span class="tag">CI</span><span class="tag">DevSecOps</span></div>
+          </article>
+
+          <article class="card" data-cat="infra">
+            <div class="meta mono"><span class="cat">Infrastructure et continuité</span><span>Formation · Cisco</span></div>
+            <h3>Réseaux avec Cisco Packet Tracer</h3>
+            <p>Exercices du parcours Cisco CyberOps Associate sur l'adressage et l'interconnexion.</p>
+            <ul>
+              <li>Topologies multi-réseaux en IPv4 et IPv6</li>
+              <li>Vérification avec ipconfig, ping, tracert et état des interfaces de switch</li>
+            </ul>
+            <div class="tags"><span class="tag">Cisco</span><span class="tag">Packet Tracer</span><span class="tag">IPv4/IPv6</span></div>
+          </article>
+
+          <article class="card" data-cat="dev">
+            <div class="meta mono"><span class="cat">Développement et automatisation</span><span>Formation · BTS SIO</span></div>
+            <h3>MarieTeam</h3>
+            <p>Application de réservation de traversées maritimes et sa base de données.</p>
+            <ul>
+              <li>Conception du MCD au schéma relationnel MySQL</li>
+              <li>Maquettes fonctionnelles sous Figma, cas d'utilisation et scénarios de validation</li>
+            </ul>
+            <div class="tags"><span class="tag">MySQL</span><span class="tag">PHP</span><span class="tag">Figma</span><span class="tag">UML</span></div>
+          </article>
+
+          <article class="card" data-cat="dev">
+            <div class="meta mono"><span class="cat">Développement et automatisation</span><span>Formation · YDays</span></div>
+            <h3>Coordination d'équipe YDays</h3>
+            <p>Projet cyber mené avec des étudiants de plusieurs niveaux, dont des premières années.</p>
+            <ul>
+              <li>Répartition des rôles et planning des missions</li>
+              <li>Suivi des tâches sur Jira, ressources centralisées sur un serveur Discord</li>
+            </ul>
+            <div class="tags"><span class="tag">Jira</span><span class="tag">Discord</span><span class="tag">Gestion de projet</span></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">04 · compétences</span>
+        <div><h2>Compétences développées</h2><p>Compétences acquises en alternance, en formation et sur mes projets personnels.</p></div>
+      </div>
+      <div class="sec-body">
+        <div class="blocs">
+          <div class="bloc">
+            <span class="mono">détection</span>
+            <h3>Détection et réponse aux incidents</h3>
+            <ul>
+              <li>Analyse et corrélation de journaux d'événements centralisés (SIEM)</li>
+              <li>Qualification d'alertes : vraie menace ou faux positif</li>
+              <li>Lecture des règles et playbooks d'automatisation d'un XDR</li>
+              <li>Diagnostic d'une perturbation à partir des alertes de supervision</li>
+              <li>Procédure de réaction face à une infection virale</li>
+              <li>Définition de métriques, seuils d'alerte et actions associées</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">risques</span>
+            <h3>Gestion des risques et conformité</h3>
+            <ul>
+              <li>Analyse de risques avec la méthode EBIOS RM</li>
+              <li>Mise en correspondance de mesures avec les contrôles ISO 27001:2022</li>
+              <li>Sécurisation du télétravail : VPN, MFA, analyse des risques</li>
+              <li>Matrice des accès physiques et logiques par profil</li>
+              <li>Principes ITSM de la norme ISO 20000</li>
+              <li>Simulation de phishing et mesure du facteur humain</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">identités</span>
+            <h3>Identités et accès</h3>
+            <ul>
+              <li>Migration des comptes génériques vers des comptes nominatifs</li>
+              <li>Habilitations par groupes et délégations de boîtes partagées</li>
+              <li>Architecture hybride Active Directory et Microsoft 365</li>
+              <li>Authentification multifacteur</li>
+              <li>Coffre de mots de passe partagé (KeePass)</li>
+              <li>Administration d'une solution d'échange sécurisé de fichiers</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">continuité</span>
+            <h3>Continuité et reprise d'activité</h3>
+            <ul>
+              <li>Rédaction d'un PCA/PRA d'infrastructure</li>
+              <li>Analyse de criticité et objectifs RTO/RPO par service</li>
+              <li>Scénarios de panne : perte d'un hôte, perte d'une salle serveur</li>
+              <li>Haute disponibilité VMware (HA, DRS) et redondance du stockage</li>
+              <li>Chiffrement des sauvegardes et plan de tests de restauration</li>
+              <li>Ressources minimales par métier et matériel de secours</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">systèmes</span>
+            <h3>Administration systèmes et infrastructure</h3>
+            <ul>
+              <li>Exploitation au quotidien : comptes, messagerie, postes de travail</li>
+              <li>Création et dimensionnement de machines virtuelles</li>
+              <li>Déploiement automatisé de postes (MDT, PXE)</li>
+              <li>Gestion des correctifs : test, déploiement progressif, WSUS</li>
+              <li>Conteneurisation avec Docker et Docker Compose</li>
+              <li>Inventaire du parc et cartographie de l'infrastructure</li>
+              <li>Préparation d'une migration avec retour arrière</li>
+              <li>Gestion de flotte mobile (MDM, Android Enterprise)</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">réseau</span>
+            <h3>Réseau</h3>
+            <ul>
+              <li>Plan d'adressage IPv4 et IPv6</li>
+              <li>Interconnexion de plusieurs réseaux</li>
+              <li>Diagnostic de connectivité (ping, tracert, interfaces de switch)</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">données</span>
+            <h3>Bases de données</h3>
+            <ul>
+              <li>Modélisation du MCD au schéma relationnel</li>
+              <li>Création et exploitation d'une base MySQL, requêtes SQL</li>
+              <li>Répartition des fichiers de base sur le stockage pour les performances</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">automatisation</span>
+            <h3>Scripts et automatisation</h3>
+            <ul>
+              <li>Scripts Bash de supervision et de sauvegarde planifiés par cron</li>
+              <li>Scripts PowerShell de collecte d'informations sur le parc</li>
+              <li>Intégration continue avec GitHub Actions (tests et contrôles de sécurité)</li>
+              <li>Automatisation du suivi des demandes (Zapier, Trello)</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">support</span>
+            <h3>Support et gestion des services</h3>
+            <ul>
+              <li>Traitement des tickets sous GLPI, priorisation et escalade N1 à N4</li>
+              <li>Tableau de bord de suivi des tickets et des délais</li>
+              <li>Enquête de satisfaction après résolution</li>
+              <li>Planification des interventions avec les utilisateurs</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">pilotage</span>
+            <h3>Achats, budget et numérique responsable</h3>
+            <ul>
+              <li>Comparatifs d'équipements avec grille de scoring pondérée</li>
+              <li>Analyse de devis, rapport qualité/prix, étude de faisabilité</li>
+              <li>Suivi budgétaire et des commandes par pôle</li>
+              <li>Contrats de maintenance et respect des niveaux de service (SLA)</li>
+              <li>Négociation avec les fournisseurs</li>
+              <li>Service de réemploi du matériel et indicateurs environnementaux</li>
+            </ul>
+          </div>
+          <div class="bloc">
+            <span class="mono">communication</span>
+            <h3>Communication et management</h3>
+            <ul>
+              <li>Documentation technique en français et en anglais</li>
+              <li>Supports de formation et sensibilisation des utilisateurs</li>
+              <li>Présentation des risques cyber aux décideurs</li>
+              <li>Préparation et animation de réunions, arbitrage en équipe</li>
+              <li>Répartition des rôles, délégation et planification des tâches</li>
+              <li>Rédaction de fiche de poste et plan de montée en compétences</li>
+              <li>Veille technologique (ex. Citrix DaaS en milieu hospitalier)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tools">
+          <h3>Outils et technologies</h3>
+          <div class="tool-groups">
+            <div class="tool-row"><span class="mono">Détection / SOC</span><div class="tags"><span class="tag">Cortex XDR</span><span class="tag">Wazuh</span><span class="tag">Zabbix</span><span class="tag">GoPhish</span><span class="tag">TryHackMe</span></div></div>
+            <div class="tool-row"><span class="mono">Systèmes</span><div class="tags"><span class="tag">Windows Server</span><span class="tag">Active Directory</span><span class="tag">Linux (Ubuntu)</span><span class="tag">VMware ESXi / vCenter</span><span class="tag">Docker</span><span class="tag">MDT / PXE</span><span class="tag">WSUS</span></div></div>
+            <div class="tool-row"><span class="mono">Cloud / identité</span><div class="tags"><span class="tag">Microsoft 365</span><span class="tag">Exchange</span><span class="tag">MFA</span><span class="tag">VPN</span><span class="tag">KeePass</span></div></div>
+            <div class="tool-row"><span class="mono">Sauvegarde</span><div class="tags"><span class="tag">Veeam</span><span class="tag">Pure Storage</span></div></div>
+            <div class="tool-row"><span class="mono">Réseau</span><div class="tags"><span class="tag">TCP/IP</span><span class="tag">IPv4 / IPv6</span><span class="tag">Cisco Packet Tracer</span></div></div>
+            <div class="tool-row"><span class="mono">Scripts / dév</span><div class="tags"><span class="tag">PowerShell</span><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">SQL / MySQL</span><span class="tag">PHP</span><span class="tag">C#</span><span class="tag">JavaScript</span><span class="tag">Git / GitHub Actions</span></div></div>
+            <div class="tool-row"><span class="mono">Méthodes</span><div class="tags"><span class="tag">EBIOS RM</span><span class="tag">ISO 27001</span><span class="tag">ISO 20000 / ITSM</span><span class="tag">GLPI</span><span class="tag">Jira</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">05 · certifications</span>
+        <div><h2>Certifications</h2></div>
+      </div>
+      <div class="certs sec-body">
+        <div class="cert">
+          <span class="issuer mono">ANSSI · décembre 2025</span>
+          <h3>SecNumacadémie</h3>
+          <div class="score"><span data-count="100" data-dec="0">100</span> % <small>aux 4 modules</small></div>
+          <p>Panorama de la SSI, sécurité de l'authentification, sécurité sur Internet, sécurité du poste de travail et nomadisme.</p>
+        </div>
+        <div class="cert">
+          <span class="issuer mono">Sulitest · juillet 2026</span>
+          <h3>TASK – Sustainability Knowledge</h3>
+          <div class="score"><span data-count="71.3" data-dec="1">71,3</span> <small>score global</small></div>
+          <p>Connaissances en développement durable, dont 81,9 sur les leviers d'action.</p>
+        </div>
+        <div class="cert">
+          <span class="issuer mono">Cisco Networking Academy</span>
+          <h3>CyberOps Associate</h3>
+          <div class="score" style="font-size:1.2rem">Parcours suivi</div>
+          <p>Fondamentaux SOC, réseau et analyse d'événements de sécurité.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORS IT -->
+  <section id="sport">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">06 · hors écran</span>
+        <div><h2>Gymnaste de niveau national</h2><p>La gymnastique m'a appris la régularité et le travail d'équipe. Je suis aussi juge de niveau 2 depuis 2018, sur des compétitions régionales et nationales.</p></div>
+      </div>
+      <div class="sec-body">
+        <div class="palmares">
+          <div><b><span data-count="2" data-dec="0">2</span>×</b><span>Champion de France par équipe (2018, 2023)</span></div>
+          <div><b><span data-count="2" data-dec="0">2</span>×</b><span>Vice-champion de France par équipe (2016, 2019)</span></div>
+          <div><b><span data-count="3" data-dec="0">3</span>×</b><span>Vice-champion de France individuel (concours général, anneaux, sol)</span></div>
+          <div><b>N2</b><span>Juge de gymnastique depuis 2018</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">07 · contact</span>
+        <div><h2>Me contacter</h2><p>Pour échanger sur la cybersécurité hospitalière, la sécurité opérationnelle ou un projet.</p></div>
+      </div>
+      <div class="contact sec-body">
+        <a href="mailto:dryan02110@outlook.fr"><span class="mono">e-mail</span>dryan02110@outlook.fr</a>
+        <a href="https://github.com/daime-ryan"><span class="mono">github</span>github.com/daime-ryan</a>
+        <a href="https://daime-ryan.github.io/Portfolio/cv.pdf"><span class="mono">cv</span>Télécharger mon CV (PDF)</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Ryan Daime · Portfolio mis à jour en novembre 2026 · <button type="button" class="replay" id="replay">Rejouer l'intro</button></div>
+</footer>
 
 
-        
-        <section class="cv-section">
-            <p>Je vous propose sur ce portfolio de retrouver ci-dessous mon parcours scolaire et professionnel. Vous retrouverez également mon CV ainsi que mes différents projets.</p>
-            <div class="cv-download">
-               <p>Clique sur le Logo pour accéder à mon CV</p>
-             <a href="cv.pdf" target="_blank">
-             <img src="https://cdn-icons-png.flaticon.com/512/2245/2245058.png" alt="Icône CV" width="40" height="40">
-                </a>
-            </div>
-        </section>
-    </main>
 
-    <script>
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            nav.classList.toggle('scrolled', window.scrollY > 50);
+<script>
+(function () {
+  var root = document.documentElement, intro = document.getElementById('intro');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timers = [], raf = 0, running = false;
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function finish() {
+    if (!running) return; running = false;
+    timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf);
+    intro.classList.add('bye');
+    setTimeout(function () { intro.classList.add('gone'); root.classList.remove('intro-on'); window.dispatchEvent(new Event('intro:done')); }, 720);
+  }
+  /* pluie de caractères hexadécimaux */
+  var cv = document.getElementById('rain'), ctx = cv.getContext('2d'), cols = [], fs = 14;
+  function sizeRain() { var d = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * d; cv.height = innerHeight * d; ctx.setTransform(d,0,0,d,0,0);
+    cols = []; for (var i = 0; i < Math.ceil(innerWidth / fs); i++) cols.push(Math.random() * -50); }
+  function rain() {
+    ctx.fillStyle = 'rgba(4,7,11,.16)'; ctx.fillRect(0, 0, innerWidth, innerHeight);
+    ctx.font = fs + 'px JetBrains Mono, monospace';
+    for (var i = 0; i < cols.length; i++) {
+      var ch = '0123456789ABCDEF'[Math.random() * 16 | 0];
+      ctx.fillStyle = Math.random() < .03 ? '#f0a14c' : '#1f6fae';
+      ctx.fillText(ch, i * fs, cols[i] * fs);
+      if (cols[i] * fs > innerHeight && Math.random() > .975) cols[i] = 0; cols[i] += .55;
+    }
+    raf = requestAnimationFrame(rain);
+  }
+  var steps = [
+    ['dim', '$ ssh ryan@portfolio --secure'],
+    ['', '[ BOOT ] chargement du noyau portfolio v2026.11'],
+    ['ok', '[  OK  ] profil : coordinateur cyber · CH de Chauny'],
+    ['ok', '[  OK  ] connexion au SIEM du lab Wazuh établie'],
+    ['ok', '[  OK  ] 11 domaines de compétences indexés'],
+    ['warn', '[ SCAN ] recherche de menaces … 0 détectée'],
+    ['ok', '[  OK  ] intégrité vérifiée · SHA-256'],
+    ['dim', '> authentification MFA … validée']
+  ];
+  function play() {
+    if (reduce) { intro.classList.add('gone'); root.classList.remove('intro-on'); return; }
+    running = true;
+    intro.classList.remove('bye', 'gone'); root.classList.add('intro-on');
+    document.getElementById('boot').style.opacity = 1;
+    document.getElementById('granted').classList.remove('show');
+    var log = document.getElementById('bootlog'), bar = document.getElementById('bootbar'), pct = document.getElementById('bootpct'), st = document.getElementById('bootstep');
+    log.innerHTML = ''; bar.style.width = '0'; pct.textContent = '0 %';
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR');
+    sizeRain(); cancelAnimationFrame(raf); rain();
+    var t = 250;
+    steps.forEach(function (l, i) {
+      later(function () {
+        var d = document.createElement('div'); d.className = l[0]; log.appendChild(d);
+        var k = 0; (function type() { d.textContent = l[1].slice(0, k += 3); if (k < l[1].length) later(type, 12); })();
+        var p = Math.round((i + 1) / steps.length * 100);
+        bar.style.transition = 'width .3s'; bar.style.width = p + '%'; pct.textContent = p + ' %';
+        st.textContent = i < steps.length - 1 ? 'chargement' : 'prêt';
+      }, t);
+      t += 330;
+    });
+    later(function () { document.getElementById('boot').style.opacity = 0; document.getElementById('granted').classList.add('show'); }, t + 250);
+    later(finish, t + 2000);
+  }
+  document.getElementById('skip').addEventListener('click', finish);
+  intro.addEventListener('click', function (e) { if (e.target.id !== 'skip') finish(); });
+  addEventListener('keydown', function (e) { if (running && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); finish(); } });
+  document.getElementById('replay').addEventListener('click', function () { scrollTo(0, 0); play(); });
+  var seen = false; try { seen = sessionStorage.getItem('rd-intro') === '1'; sessionStorage.setItem('rd-intro', '1'); } catch (e) {}
+  if (seen) { intro.classList.add('gone'); root.classList.remove('intro-on'); } else { play(); document.getElementById('skip').focus({ preventScroll: true }); }
+})();
+</script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  /* Barre de progression + lien actif + frise */
+  var bar = document.querySelector('.progress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var tl = document.querySelector('.timeline'), fill = document.querySelector('.tl-fill');
+  var tlItems = Array.prototype.slice.call(document.querySelectorAll('.timeline > li'));
+  function onScroll() {
+    var h = root.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+    var cur = -1;
+    secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < innerHeight * .4) cur = i; });
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    if (tl) {
+      var r = tl.getBoundingClientRect(), mark = innerHeight * .7;
+      var p = Math.max(0, Math.min(r.height - 12, mark - r.top));
+      fill.style.height = (reduce ? r.height - 12 : p) + 'px';
+      tlItems.forEach(function (li) { li.classList.toggle('lit', reduce || li.getBoundingClientRect().top + 10 < mark); });
+    }
+  }
+  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
+
+  /* Apparition des éléments */
+  var revealSel = '.sec-head, .facts li, .timeline > li, .card, .bloc, .cert, .palmares > div, .contact a, .about > div > p, .tool-row';
+  var els = document.querySelectorAll(revealSel);
+  els.forEach(function (el) { el.classList.add('reveal'); });
+  function countUp(el) {
+    var t = parseFloat(el.getAttribute('data-count')), d = +el.getAttribute('data-dec'), t0 = null;
+    if (reduce) return;
+    function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 1200); k = 1 - Math.pow(1 - k, 3);
+      el.textContent = (t * k).toFixed(d).replace('.', ','); if (k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target, sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
+        el.style.transitionDelay = Math.min(sib, 6) * 70 + 'ms';
+        el.classList.add('in');
+        el.querySelectorAll('[data-count]').forEach(countUp);
+        if (el.classList.contains('tool-row')) el.querySelectorAll('.tag').forEach(function (t, i) { setTimeout(function () { t.classList.add('pop'); }, 120 + i * 60); });
+        io.unobserve(el);
+      });
+    }, { threshold: .12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll('.tools .tag').forEach(function (t) { t.classList.add('pop'); });
+  }
+
+  /* Texte tapé */
+  var typed = document.getElementById('typed');
+  var words = ['coordinateur cyber', 'étudiant Mastère 1', 'futur analyste SOC'];
+  if (!reduce) (function () {
+    var w = 0, i = words[0].length, del = true;
+    function tick() {
+      var word = words[w];
+      if (del) { i--; if (i <= 0) { del = false; w = (w + 1) % words.length; } }
+      else { i++; if (i >= words[w].length) { del = true; typed.textContent = words[w]; return setTimeout(tick, 1800); } }
+      typed.textContent = words[w].slice(0, Math.max(0, i)) || '​';
+      setTimeout(tick, del ? 40 : 85);
+    }
+    setTimeout(tick, 2200);
+  })();
+
+  /* Alerte qui s'affiche ligne par ligne */
+  var parts = document.querySelectorAll('.alert-card dt, .alert-card dd, .alert-card .verdict');
+  function playAlert() {
+    parts.forEach(function (p) { p.classList.remove('on'); });
+    parts.forEach(function (p, i) { setTimeout(function () { p.classList.add('on'); }, reduce ? 0 : 400 + i * 260); });
+  }
+  playAlert(); if (!reduce) setInterval(playAlert, 12000);
+  addEventListener('intro:done', playAlert);
+
+  /* Flux de journal du lab */
+  var lines = [
+    ['ok', '[OK]   wazuh-manager : service actif'],
+    ['info', '[INFO] agent win-01 connecté au manager'],
+    ['ok', '[OK]   supervision.sh : CPU, RAM, disque contrôlés'],
+    ['info', '[ALERT] event 4625 · échec d\'authentification'],
+    ['ok', '[OK]   cause identifiée : 0xc0000064'],
+    ['ok', '[OK]   cron 02:00 · sauvegarde Wazuh archivée'],
+    ['info', '[INFO] entrée ajoutée à supervision.log']
+  ];
+  var tk = document.getElementById('ticker'), li = 0;
+  function push() {
+    var d = document.createElement('div'); d.className = lines[li][0]; d.textContent = lines[li][1];
+    tk.appendChild(d); while (tk.children.length > 3) tk.removeChild(tk.firstChild);
+    li = (li + 1) % lines.length;
+  }
+  push(); push(); push(); if (!reduce) setInterval(push, 1600);
+
+  /* Filtre animé des projets */
+  var buttons = document.querySelectorAll('.filters button'), cards = document.querySelectorAll('.projects .card');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = btn.getAttribute('data-filter');
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      cards.forEach(function (c) { if (!c.hidden) c.classList.add('out'); });
+      setTimeout(function () {
+        cards.forEach(function (c) {
+          var show = f === 'tous' || c.getAttribute('data-cat') === f;
+          c.hidden = !show; c.style.transitionDelay = '0ms';
+          if (show) { c.classList.add('out', 'in'); requestAnimationFrame(function () { requestAnimationFrame(function () { c.classList.remove('out'); }); }); }
         });
-    </script>
+      }, reduce ? 0 : 220);
+    });
+  });
+
+  /* Réseau de nœuds en fond */
+  var cv = document.getElementById('net'); if (!cv || reduce) return;
+  var ctx = cv.getContext('2d'), W, H, dpr, nodes = [], mouse = { x: -999, y: -999 };
+  function css(v) { return getComputedStyle(root).getPropertyValue(v).trim(); }
+  function size() {
+    dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.min(70, W * H / 22000)); nodes = [];
+    for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, a: Math.random() < .08 });
+  }
+  addEventListener('resize', size); size();
+  addEventListener('mousemove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  var pulse = 0;
+  function draw() {
+    var acc = css('--accent'), sig = css('--signal');
+    ctx.clearRect(0, 0, W, H); pulse += .03;
+    for (var i = 0; i < nodes.length; i++) {
+      var a = nodes[i]; a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > W) a.vx *= -1; if (a.y < 0 || a.y > H) a.vy *= -1;
+      for (var j = i + 1; j < nodes.length; j++) {
+        var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = dx * dx + dy * dy;
+        if (d < 15000) { ctx.globalAlpha = (1 - d / 15000) * .35; ctx.strokeStyle = acc; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      var md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (md < 160) { ctx.globalAlpha = (1 - md / 160) * .5; ctx.strokeStyle = sig; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
+      ctx.globalAlpha = a.a ? .6 + Math.sin(pulse * 2) * .4 : .55;
+      ctx.fillStyle = a.a ? sig : acc;
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.a ? 3 : 1.8, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+
 </body>
 </html>
